@@ -22,7 +22,7 @@ typedef struct ArrayList ArrayList;
  * @param typeSize Size in bytes of a single element in the list.
  * @return Pointer to a newly created ArrayList, or NULL if memory allocation fails.
  */
-ArrayList *arraylist_create(int typeSize);
+ArrayList *arraylist_create(size_t typeSize);
 
 /**
  * @brief Creates a new ArrayList for elements of a given size with a specified initial capacity.
@@ -35,7 +35,7 @@ ArrayList *arraylist_create(int typeSize);
  * @param initialSize Initial capacity of the ArrayList.
  * @return Pointer to a newly created ArrayList, or NULL if memory allocation fails.
  */
-ArrayList *arraylist_createInitSize(int typeSize, int initialSize);
+ArrayList *arraylist_createInitSize(size_t typeSize, size_t initialSize);
 
 /**
  * Frees all memory used by the ArrayList.

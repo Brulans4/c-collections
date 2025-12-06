@@ -14,20 +14,25 @@ typedef struct ArrayList
 static void arraylist_resize(ArrayList *list);
 static void arraylist_resizeList(ArrayList *list, float factor);
 
-ArrayList *arraylist_create(int typeSize)
+ArrayList *arraylist_create(size_t typeSize)
 {
     return arraylist_createInitSize(typeSize, 4);
 }
 
-ArrayList *arraylist_createInitSize(int typeSize, int initialSize)
+ArrayList *arraylist_createInitSize(size_t typeSize, size_t initialSize)
 {
+    if (typeSize == 0 || initialSize == 0)
+    {
+       return NULL;
+    }
+    
     ArrayList *list = (ArrayList *)malloc(sizeof(ArrayList));
 
     list->size = 0;
     list->capacity = initialSize;
     list->typeSize = typeSize;
 
-    list->data = malloc(list->capacity * typeSize);
+    list->data = malloc((list->capacity) * typeSize);
     if (!list->data)
     {
         free(list);
@@ -57,13 +62,13 @@ size_t arraylist_size(const ArrayList *list)
 
 void arraylist_add(ArrayList *list, void *element)
 {
-    if (list == NULL)
+    if (list == NULL || element == NULL)
     {
         return;
     }
     uint8_t *byteData = (uint8_t *)list->data;
 
-    memcpy(byteData + list->typeSize * list->size,
+    memcpy(byteData + (list->typeSize * list->size),
            element,
            list->typeSize);
     list->size++;
@@ -76,15 +81,14 @@ void arraylist_add(ArrayList *list, void *element)
 
 void arraylist_addAt(ArrayList *list, void *element, size_t index)
 {
-    if (list == NULL && list->size == 0)
+    if (list == NULL || element == NULL)
     {
         return;
     }
-    if (index < 0 || list->size <= index)
+    if (index < 0 || list->size < index)
     {
         return;
     }
-
     uint8_t *byteData = (uint8_t *)list->data;
 
     memmove(byteData + ((index + 1) * list->typeSize),
@@ -137,10 +141,15 @@ static void arraylist_resizeList(ArrayList *list, float factor)
 
 void *arraylist_remove(ArrayList *list)
 {
-    if (list == NULL && list->size == 0)
+    if (list == NULL)
     {
         return NULL;
     }
+    if (list->size == 0)
+    {
+        return NULL;
+    }
+    
 
     void *element = malloc(list->typeSize);
     if (!element)
@@ -163,7 +172,11 @@ void *arraylist_remove(ArrayList *list)
 
 void *arraylist_removeAt(ArrayList *list, size_t index)
 {
-    if (list == NULL && list->size == 0)
+    if (list == NULL)
+    {
+        return NULL;
+    }
+    if (list->size == 0)
     {
         return NULL;
     }
@@ -193,7 +206,11 @@ void *arraylist_removeAt(ArrayList *list, size_t index)
 
 void *arraylist_get(ArrayList *list, size_t index)
 {
-    if (list == NULL && list->size == 0)
+    if (list == NULL)
+    {
+        return NULL;
+    }
+    if (list->size == 0)
     {
         return NULL;
     }
