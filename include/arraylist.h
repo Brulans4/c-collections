@@ -56,18 +56,37 @@ size_t arraylist_size(const ArrayList *list);
  * The resize strategy is:
  *  - double the capacity while it is <= 1024,
  *  - increase by a factor of 1.3 once capacity > 1024.
- * 
+ *
  * @ref For more details about the resize strategy read docs/arrayList.md
  *
- * @param list Pointer to the ArrayList.
- * @param element Pointer to the element to add. The function copies
- *        `typeSize` bytes from this pointer.
+ * @param list      Pointer to the ArrayList.
+ * @param element   Pointer to the element to add. The function copies
+ *                  `typeSize` bytes from this pointer.
  *
  * @note The element pointer must refer to initialized memory and must not be NULL.
  * @note A reallocation may occur; all previously returned raw data pointers become invalid.
  */
 void arraylist_Add(ArrayList *list, void *ellement);
 
-
+/**
+ * @brief Inserts an element into the ArrayList at the specified index.
+ *
+ * Shifts all elements from the given index onwards one position to the right
+ * to make room for the new element. If the index is greater than or equal
+ * to the current size of the list, the function does nothing.
+ *
+ * If the insertion causes the list size to reach its current capacity, the
+ * underlying storage is automatically resized. The resizing factor depends
+ * on the current capacity: it doubles the capacity if it is 1024 or less,
+ * otherwise it increases the capacity by 30%.
+ *
+ * @param list      Pointer to the ArrayList in which the element will be inserted.
+ * @param element   Pointer to the element to be inserted. The element data is copied
+ *                  into the list, so the original memory can be freed or reused
+ *                  after the call.
+ * @param index     Position at which the element should be inserted. Valid values
+ *                  are 0 to list->size - 1. If index >= list->size, no insertion occurs.
+ */
+void arraylist_AddIndex(ArrayList *list, void *element, size_t index);
 
 #endif // ARRAY_LIST_H

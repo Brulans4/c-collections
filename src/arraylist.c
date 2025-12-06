@@ -63,9 +63,9 @@ void arraylist_AddIndex(ArrayList *list, void *element, size_t index)
     uint8_t *byteData = (uint8_t *)list->data;
 
     memmove(
-        byteData + (index + 1) * list->typeSize, // destination
-        byteData + index * list->typeSize,       // source
-        (list->size - index) * list->typeSize    // bytes to move
+        byteData + (index + 1) * list->typeSize,
+        byteData + index * list->typeSize,      
+        (list->size - index) * list->typeSize 
     );
 
     memcpy(
@@ -110,3 +110,4 @@ static void arraylist_resizeList(ArrayList *list, float factor)
     list->data = newData;
     list->capacity = newCapacity;
 }
+
