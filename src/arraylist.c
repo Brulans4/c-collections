@@ -36,6 +36,16 @@ ArrayList *arraylist_createInitSize(int typeSize, int initialSize)
     return list;
 }
 
+void arraylist_free(ArrayList *list)
+{
+    if (list == NULL)
+    {
+        return;
+    }
+    free(list->data);
+    free(list);
+}
+
 size_t arraylist_size(const ArrayList *list)
 {
     return list->size;
@@ -164,7 +174,8 @@ void *arraylist_removeAt(ArrayList *list, size_t index)
     return element;
 }
 
-void* arraylist_get(ArrayList *list, size_t index){
+void *arraylist_get(ArrayList *list, size_t index)
+{
     if (list->size == 0)
     {
         return NULL;
