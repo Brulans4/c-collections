@@ -48,12 +48,21 @@ void arraylist_free(ArrayList *list)
 
 size_t arraylist_size(const ArrayList *list)
 {
+    if (list == NULL)
+    {
+        return -1;
+    }
     return list->size;
 }
 
 void arraylist_add(ArrayList *list, void *element)
 {
+    if (list == NULL)
+    {
+        return;
+    }
     uint8_t *byteData = (uint8_t *)list->data;
+
     memcpy(byteData + list->typeSize * list->size,
            element,
            list->typeSize);
@@ -67,6 +76,10 @@ void arraylist_add(ArrayList *list, void *element)
 
 void arraylist_addAt(ArrayList *list, void *element, size_t index)
 {
+    if (list == NULL)
+    {
+        return;
+    }
     if (list->size <= index)
     {
         return;
@@ -103,7 +116,7 @@ static void arraylist_resize(ArrayList *list)
 
 static void arraylist_resizeList(ArrayList *list, float factor)
 {
-    size_t newCapacity = list->capacity * factor;
+    size_t newCapacity = (list->capacity) * factor;
     uint8_t *newData = malloc(newCapacity * list->typeSize);
 
     if (!newData)
@@ -124,6 +137,10 @@ static void arraylist_resizeList(ArrayList *list, float factor)
 
 void *arraylist_remove(ArrayList *list)
 {
+    if (list == NULL)
+    {
+        return NULL;
+    }
     if (list->size == 0)
     {
         return NULL;
@@ -150,6 +167,10 @@ void *arraylist_remove(ArrayList *list)
 
 void *arraylist_removeAt(ArrayList *list, size_t index)
 {
+    if (list == NULL)
+    {
+        return NULL;
+    }
     if (list->size == 0)
     {
         return NULL;
@@ -175,7 +196,10 @@ void *arraylist_removeAt(ArrayList *list, size_t index)
 }
 
 void *arraylist_get(ArrayList *list, size_t index)
-{
+{if (list == NULL)
+    {
+        return NULL;
+    }
     if (list->size == 0)
     {
         return NULL;
