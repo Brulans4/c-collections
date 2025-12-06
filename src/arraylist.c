@@ -163,3 +163,23 @@ void *arraylist_RemoveIndex(ArrayList *list, size_t index)
 
     return element;
 }
+
+void* arraylist_Get(ArrayList *list, size_t index){
+    if (list->size == 0)
+    {
+        return NULL;
+    }
+
+    void *element = malloc(list->typeSize);
+    if (!element)
+    {
+        return NULL;
+    }
+    uint8_t *byteData = (uint8_t *)list->data;
+
+    memcpy(element,
+           byteData + (index * list->typeSize),
+           list->typeSize);
+
+    return element;
+}

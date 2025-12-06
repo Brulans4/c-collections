@@ -75,10 +75,10 @@ void arraylist_Add(ArrayList *list, void *ellement);
  * to make room for the new element. If the index is greater than or equal
  * to the current size of the list, the function does nothing.
  *
- * If the insertion causes the list size to reach its current capacity, the
- * underlying storage is automatically resized. The resizing factor depends
- * on the current capacity: it doubles the capacity if it is 1024 or less,
- * otherwise it increases the capacity by 30%.
+ * If the internal storage is full, the list automatically grows.
+ * The resize strategy is:
+ *  - double the capacity while it is <= 1024,
+ *  - increase by a factor of 1.3 once capacity > 1024.
  *
  * @param list      Pointer to the ArrayList in which the element will be inserted.
  * @param element   Pointer to the element to be inserted. The element data is copied
@@ -101,7 +101,7 @@ void arraylist_AddIndex(ArrayList *list, void *element, size_t index);
  * @return      Pointer to a copy of the removed element, or NULL if the list is empty
  *              or memory allocation fails.
  */
-void* arraylist_Remove(ArrayList *list);
+void *arraylist_Remove(ArrayList *list);
 
 /**
  * Removes and returns the element at the specified index of the ArrayList.
@@ -113,11 +113,23 @@ void* arraylist_Remove(ArrayList *list);
  *
  * @param list  Pointer to the ArrayList from which the element will be removed.
  * @param index Position of the element to remove. Valid values are 0 to list->size - 1.
- * @return Pointer to a copy of the removed element, or NULL if the list is empty,
- *         the index is invalid, or memory allocation fails.
+ * @return      Pointer to a copy of the removed element, or NULL if the list is empty,
+ *              the index is invalid, or memory allocation fails.
  */
-void* arraylist_RemoveIndex(ArrayList *list, size_t index);
+void *arraylist_RemoveIndex(ArrayList *list, size_t index);
 
-
+/**
+ * Returns a copy of the element at the specified index in the ArrayList.
+ *
+ * If the index is out of bounds or the list is empty, the function returns NULL.
+ * The element is copied into a newly allocated memory block, so the caller is
+ * responsible for freeing the returned memory.
+ *
+ * @param list  Pointer to the ArrayList from which to get the element.
+ * @param index Position of the element to retrieve. Valid values are 0 to list->size - 1.
+ * @return      Pointer to a copy of the element at the given index, or NULL if the list
+ *              is empty, the index is invalid, or memory allocation fails.
+ */
+void *arraylist_Get(ArrayList *list, size_t index);
 
 #endif // ARRAY_LIST_H
