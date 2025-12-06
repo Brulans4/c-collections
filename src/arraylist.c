@@ -41,7 +41,7 @@ size_t arraylist_size(const ArrayList *list)
     return list->size;
 }
 
-void arraylist_Add(ArrayList *list, void *element)
+void arraylist_add(ArrayList *list, void *element)
 {
     uint8_t *byteData = (uint8_t *)list->data;
     memcpy(byteData + list->typeSize * list->size,
@@ -55,7 +55,7 @@ void arraylist_Add(ArrayList *list, void *element)
     }
 }
 
-void arraylist_AddIndex(ArrayList *list, void *element, size_t index)
+void arraylist_addAt(ArrayList *list, void *element, size_t index)
 {
     if (list->size <= index)
     {
@@ -112,7 +112,7 @@ static void arraylist_resizeList(ArrayList *list, float factor)
     list->capacity = newCapacity;
 }
 
-void *arraylist_Remove(ArrayList *list)
+void *arraylist_remove(ArrayList *list)
 {
     if (list->size == 0)
     {
@@ -138,7 +138,7 @@ void *arraylist_Remove(ArrayList *list)
     return element;
 }
 
-void *arraylist_RemoveIndex(ArrayList *list, size_t index)
+void *arraylist_removeAt(ArrayList *list, size_t index)
 {
     if (list->size == 0)
     {
@@ -164,7 +164,7 @@ void *arraylist_RemoveIndex(ArrayList *list, size_t index)
     return element;
 }
 
-void* arraylist_Get(ArrayList *list, size_t index){
+void* arraylist_get(ArrayList *list, size_t index){
     if (list->size == 0)
     {
         return NULL;

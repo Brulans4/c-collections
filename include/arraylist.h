@@ -24,6 +24,8 @@ typedef struct ArrayList ArrayList;
  */
 ArrayList *arraylist_create(int typeSize);
 
+void arraylist_free(ArrayList *list);
+
 /**
  * @brief Creates a new ArrayList for elements of a given size with a specified initial capacity.
  *
@@ -66,7 +68,7 @@ size_t arraylist_size(const ArrayList *list);
  * @note The element pointer must refer to initialized memory and must not be NULL.
  * @note A reallocation may occur; all previously returned raw data pointers become invalid.
  */
-void arraylist_Add(ArrayList *list, void *ellement);
+void arraylist_add(ArrayList *list, void *ellement);
 
 /**
  * @brief Inserts an element into the ArrayList at the specified index.
@@ -87,7 +89,7 @@ void arraylist_Add(ArrayList *list, void *ellement);
  * @param index     Position at which the element should be inserted. Valid values
  *                  are 0 to list->size - 1. If index >= list->size, no insertion occurs.
  */
-void arraylist_AddIndex(ArrayList *list, void *element, size_t index);
+void arraylist_addAt(ArrayList *list, void *element, size_t index);
 
 /**
  * Removes and returns the first element of the ArrayList.
@@ -101,7 +103,7 @@ void arraylist_AddIndex(ArrayList *list, void *element, size_t index);
  * @return      Pointer to a copy of the removed element, or NULL if the list is empty
  *              or memory allocation fails.
  */
-void *arraylist_Remove(ArrayList *list);
+void *arraylist_remove(ArrayList *list);
 
 /**
  * Removes and returns the element at the specified index of the ArrayList.
@@ -116,7 +118,7 @@ void *arraylist_Remove(ArrayList *list);
  * @return      Pointer to a copy of the removed element, or NULL if the list is empty,
  *              the index is invalid, or memory allocation fails.
  */
-void *arraylist_RemoveIndex(ArrayList *list, size_t index);
+void *arraylist_removeAt(ArrayList *list, size_t index);
 
 /**
  * Returns a copy of the element at the specified index in the ArrayList.
@@ -130,6 +132,6 @@ void *arraylist_RemoveIndex(ArrayList *list, size_t index);
  * @return      Pointer to a copy of the element at the given index, or NULL if the list
  *              is empty, the index is invalid, or memory allocation fails.
  */
-void *arraylist_Get(ArrayList *list, size_t index);
+void *arraylist_get(ArrayList *list, size_t index);
 
 #endif // ARRAY_LIST_H
