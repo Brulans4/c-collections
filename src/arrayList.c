@@ -30,5 +30,7 @@ ArrayList *arraylist_createInitSize(int typeSize, int initialSize)
     return list;
 }
 
-
+size_t arraylist_size(const ArrayList *list){
+    return list->size;
+}
 

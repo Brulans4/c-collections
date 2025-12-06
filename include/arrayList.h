@@ -37,6 +37,14 @@ ArrayList *arraylist_create(int typeSize);
  */
 ArrayList *arraylist_createInitSize(int typeSize, int initialSize);
 
+/**
+ * @brief Returns the number of elements currently stored in the ArrayList.
+ *
+ * @param list Pointer to the ArrayList.
+ * @return Number of elements in the list.
+ */
+size_t arraylist_size(const ArrayList *list);
+
 
 
 #endif // ARRAY_LIST_H
