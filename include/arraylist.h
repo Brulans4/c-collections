@@ -24,8 +24,6 @@ typedef struct ArrayList ArrayList;
  */
 ArrayList *arraylist_create(int typeSize);
 
-void arraylist_free(ArrayList *list);
-
 /**
  * @brief Creates a new ArrayList for elements of a given size with a specified initial capacity.
  *
@@ -38,6 +36,17 @@ void arraylist_free(ArrayList *list);
  * @return Pointer to a newly created ArrayList, or NULL if memory allocation fails.
  */
 ArrayList *arraylist_createInitSize(int typeSize, int initialSize);
+
+/**
+ * Frees all memory used by the ArrayList.
+ *
+ * This function frees both the internal data array and the ArrayList structure itself.
+ * After calling this function, the pointer to the ArrayList becomes invalid and
+ * should not be used.
+ *
+ * @param list Pointer to the ArrayList to be freed. If NULL, the function does nothing.
+ */
+void arraylist_free(ArrayList *list);
 
 /**
  * @brief Returns the number of elements currently stored in the ArrayList.
