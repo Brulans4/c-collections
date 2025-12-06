@@ -1,4 +1,4 @@
-#include "include/arrayList.h"
+#include "../include/arraylist.h"
 
 typedef struct ArrayList
 {
@@ -41,10 +41,37 @@ size_t arraylist_size(const ArrayList *list)
     return list->size;
 }
 
-void arraylist_Add(ArrayList *list, void *ellement)
+void arraylist_Add(ArrayList *list, void *element)
 {
     uint8_t *byteData = (uint8_t *)list->data;
-    memcpy(byteData + list->typeSize * list->size, ellement, list->typeSize);
+    memcpy(byteData + list->typeSize * list->size, element, list->typeSize);
+    list->size++;
+
+    if (list->size == list->capacity)
+    {
+        arraylist_resize(list);
+    }
+}
+
+void arraylist_AddIndex(ArrayList *list, void *element, size_t index)
+{
+    if (list->size <= index)
+    {
+        return;
+    }
+
+    uint8_t *byteData = (uint8_t *)list->data;
+
+    memmove(
+        byteData + (index + 1) * list->typeSize, // destination
+        byteData + index * list->typeSize,       // source
+        (list->size - index) * list->typeSize    // bytes to move
+    );
+
+    memcpy(
+        byteData + index * list->typeSize,
+        element,
+        list->typeSize);
     list->size++;
 
     if (list->size == list->capacity)
