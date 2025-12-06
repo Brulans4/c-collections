@@ -6,13 +6,13 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pedantic -Wvla -Werror -Wall -D_DEFAULT_SOURCE")
 
-option(ENABLE_ARRAYLIST "Build the ArrayList module" ON)
-
 include_directories(include)
 
-if(ENABLE_ARRAYLIST)
-    add_library(collections_arraylist src/arraylist.c)
+set(LIB_SOURCES
+    src/arraylist.c
+)
 
-    install(TARGETS collections_arraylist DESTINATION lib)
-    install(FILES include/arraylist.h DESTINATION include)
-endif()
+add_library(collections STATIC ${LIB_SOURCES})
+
+add_executable(test_arraylist tests/test_arraylist.c)
+target_link_libraries(test_arraylist collections)
