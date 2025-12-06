@@ -44,7 +44,9 @@ size_t arraylist_size(const ArrayList *list)
 void arraylist_Add(ArrayList *list, void *element)
 {
     uint8_t *byteData = (uint8_t *)list->data;
-    memcpy(byteData + list->typeSize * list->size, element, list->typeSize);
+    memcpy(byteData + list->typeSize * list->size,
+           element,
+           list->typeSize);
     list->size++;
 
     if (list->size == list->capacity)
@@ -62,16 +64,13 @@ void arraylist_AddIndex(ArrayList *list, void *element, size_t index)
 
     uint8_t *byteData = (uint8_t *)list->data;
 
-    memmove(
-        byteData + (index + 1) * list->typeSize,
-        byteData + index * list->typeSize,      
-        (list->size - index) * list->typeSize 
-    );
+    memmove(byteData + ((index + 1) * list->typeSize),
+            byteData + (index * list->typeSize),
+            (list->size - index) * list->typeSize);
 
-    memcpy(
-        byteData + index * list->typeSize,
-        element,
-        list->typeSize);
+    memcpy(byteData + (index * list->typeSize),
+           element,
+           list->typeSize);
     list->size++;
 
     if (list->size == list->capacity)
@@ -104,10 +103,63 @@ static void arraylist_resizeList(ArrayList *list, float factor)
 
     uint8_t *oldData = (uint8_t *)list->data;
 
-    memcpy(newData, oldData, list->size * list->typeSize);
+    memcpy(newData,
+           oldData,
+           list->size * list->typeSize);
     free(oldData);
 
     list->data = newData;
     list->capacity = newCapacity;
 }
 
+void *arraylist_Remove(ArrayList *list)
+{
+    if (list->size == 0)
+    {
+        return NULL;
+    }
+
+    void *element = malloc(list->typeSize);
+    if (!element)
+    {
+        return NULL;
+    }
+    uint8_t *byteData = (uint8_t *)list->data;
+
+    memcpy(element,
+           byteData,
+           list->typeSize);
+    list->size--;
+
+    memmove(byteData,
+            byteData + list->typeSize,
+            list->typeSize * list->size);
+
+    return element;
+}
+
+void *arraylist_RemoveIndex(ArrayList *list, size_t index)
+{
+    if (list->size == 0)
+    {
+        return NULL;
+    }
+
+    void *element = malloc(list->typeSize);
+    if (!element)
+    {
+        return NULL;
+    }
+    uint8_t *byteData = (uint8_t *)list->data;
+
+    memcpy(element,
+           byteData + (index * list->typeSize),
+           list->typeSize);
+    list->size--;
+
+    memmove(byteData + (index * list->typeSize),
+            byteData + (index + 1) * list->typeSize,
+            list->typeSize * (list->size - index));
+
+    return element;
+}

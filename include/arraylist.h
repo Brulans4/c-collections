@@ -89,4 +89,35 @@ void arraylist_Add(ArrayList *list, void *ellement);
  */
 void arraylist_AddIndex(ArrayList *list, void *element, size_t index);
 
+/**
+ * Removes and returns the first element of the ArrayList.
+ *
+ * Shifts all remaining elements one position to the left to fill the gap.
+ * If the list is empty, the function returns NULL. The removed element is
+ * copied into a newly allocated memory block, which the caller is responsible
+ * for freeing.
+ *
+ * @param list  Pointer to the ArrayList from which the element will be removed.
+ * @return      Pointer to a copy of the removed element, or NULL if the list is empty
+ *              or memory allocation fails.
+ */
+void* arraylist_Remove(ArrayList *list);
+
+/**
+ * Removes and returns the element at the specified index of the ArrayList.
+ *
+ * Shifts all subsequent elements one position to the left to fill the gap.
+ * If the index is out of bounds or the list is empty, the function returns NULL.
+ * The removed element is copied into a newly allocated memory block, which
+ * the caller is responsible for freeing.
+ *
+ * @param list  Pointer to the ArrayList from which the element will be removed.
+ * @param index Position of the element to remove. Valid values are 0 to list->size - 1.
+ * @return Pointer to a copy of the removed element, or NULL if the list is empty,
+ *         the index is invalid, or memory allocation fails.
+ */
+void* arraylist_RemoveIndex(ArrayList *list, size_t index);
+
+
+
 #endif // ARRAY_LIST_H
