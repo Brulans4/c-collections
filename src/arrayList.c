@@ -44,12 +44,12 @@ size_t arraylist_size(const ArrayList *list)
 void arraylist_Add(ArrayList *list, void *ellement)
 {
     uint8_t *byteData = (uint8_t *)list->data;
-    byteData[(list->typeSize) * (list->size)] = ellement;
-
+    memcpy(byteData + list->typeSize * list->size, ellement, list->typeSize);
     list->size++;
+
     if (list->size == list->capacity)
     {
-        arraylist_Resize(list);
+        arraylist_resize(list);
     }
 }
 
@@ -70,11 +70,12 @@ static void arraylist_resizeList(ArrayList *list, float factor)
     size_t newCapacity = list->capacity * factor;
     uint8_t *newData = malloc(newCapacity * list->typeSize);
 
-    if (!newData) {
+    if (!newData)
+    {
         return;
     }
 
-    uint8_t *oldData = (uint8_t*) list->data;
+    uint8_t *oldData = (uint8_t *)list->data;
 
     memcpy(newData, oldData, list->size * list->typeSize);
     free(oldData);

@@ -9,14 +9,13 @@
  */
 typedef struct ArrayList ArrayList;
 
-
 /**
  * @brief Creates a new ArrayList for elements of a given size.
  *
  * Allocates memory for an ArrayList and initializes it with a default
  * initial capacity of 4. The elements will be stored as raw bytes
  * with each element of size `typeSize`.
- * 
+ *
  * @ref For more details about the default initial capacity of 4 read docs/arrayList.md
  *
  * @param typeSize Size in bytes of a single element in the list.
@@ -45,6 +44,27 @@ ArrayList *arraylist_createInitSize(int typeSize, int initialSize);
  */
 size_t arraylist_size(const ArrayList *list);
 
-void arraylist_Add(ArrayList *list, void* ellement);
+/**
+ * @brief Adds an element to the end of the ArrayList.
+ *
+ * Copies the bytes of the element pointed to by `element` into the internal
+ * storage of the list. The element must have the same size as the type size
+ * specified when the list was created.
+ *
+ * If the internal storage is full, the list automatically grows.
+ * The resize strategy is:
+ *  - double the capacity while it is <= 1024,
+ *  - increase by a factor of 1.3 once capacity > 1024.
+ * 
+ * @ref For more details about the resize strategy read docs/arrayList.md
+ *
+ * @param list Pointer to the ArrayList.
+ * @param element Pointer to the element to add. The function copies
+ *        `typeSize` bytes from this pointer.
+ *
+ * @note The element pointer must refer to initialized memory and must not be NULL.
+ * @note A reallocation may occur; all previously returned raw data pointers become invalid.
+ */
+void arraylist_Add(ArrayList *list, void *ellement);
 
 #endif // ARRAY_LIST_H
