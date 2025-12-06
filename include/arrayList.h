@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 /**
  * @brief Opaque structure representing a dynamic array (ArrayList).
@@ -66,5 +67,7 @@ size_t arraylist_size(const ArrayList *list);
  * @note A reallocation may occur; all previously returned raw data pointers become invalid.
  */
 void arraylist_Add(ArrayList *list, void *ellement);
+
+
 
 #endif // ARRAY_LIST_H
