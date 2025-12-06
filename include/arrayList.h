@@ -45,6 +45,6 @@ ArrayList *arraylist_createInitSize(int typeSize, int initialSize);
  */
 size_t arraylist_size(const ArrayList *list);
 
-
+void arraylist_Add(ArrayList *list, void* ellement);
 
 #endif // ARRAY_LIST_H
