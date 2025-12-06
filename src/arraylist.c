@@ -76,11 +76,11 @@ void arraylist_add(ArrayList *list, void *element)
 
 void arraylist_addAt(ArrayList *list, void *element, size_t index)
 {
-    if (list == NULL)
+    if (list == NULL && list->size == 0)
     {
         return;
     }
-    if (list->size <= index)
+    if (index < 0 || list->size <= index)
     {
         return;
     }
@@ -137,11 +137,7 @@ static void arraylist_resizeList(ArrayList *list, float factor)
 
 void *arraylist_remove(ArrayList *list)
 {
-    if (list == NULL)
-    {
-        return NULL;
-    }
-    if (list->size == 0)
+    if (list == NULL && list->size == 0)
     {
         return NULL;
     }
@@ -167,11 +163,11 @@ void *arraylist_remove(ArrayList *list)
 
 void *arraylist_removeAt(ArrayList *list, size_t index)
 {
-    if (list == NULL)
+    if (list == NULL && list->size == 0)
     {
         return NULL;
     }
-    if (list->size == 0)
+    if (index < 0 || list->size <= index)
     {
         return NULL;
     }
@@ -196,11 +192,12 @@ void *arraylist_removeAt(ArrayList *list, size_t index)
 }
 
 void *arraylist_get(ArrayList *list, size_t index)
-{if (list == NULL)
+{
+    if (list == NULL && list->size == 0)
     {
         return NULL;
     }
-    if (list->size == 0)
+    if (index < 0 || list->size <= index)
     {
         return NULL;
     }
