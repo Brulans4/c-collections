@@ -4,8 +4,8 @@ typedef struct ArrayList
 {
     size_t size;
     size_t capacity;
-    void *data;
     int typeSize;
+    void *data;
 } ArrayList;
 
 ArrayList *arraylist_create(int typeSize)
@@ -29,3 +29,6 @@ ArrayList *arraylist_createInitSize(int typeSize, int initialSize)
     }
     return list;
 }
+
+
+
