@@ -32,4 +32,8 @@ jobs:
           for t in test_*; do
             echo "Running $t..."
             ./$t
+            if [ $? -ne 0 ]; then
+              echo "$t FAILED!"
+              exit 1
+            fi
           done
