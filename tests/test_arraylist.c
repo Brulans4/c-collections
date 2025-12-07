@@ -168,7 +168,7 @@ void test_arraylist_size()
 void test_arraylist_add_listNULL()
 {
     ArrayList *listInt = NULL;
-    arraylist_add(listInt, 0);
+    assert(arraylist_add(listInt, 0) == false);
     assert(arraylist_size(listInt) == -1);
 }
 
@@ -181,7 +181,7 @@ void test_arraylist_add_elementNULL()
         return;
     }
 
-    arraylist_add(listInt, NULL);
+    assert(arraylist_add(listInt, NULL) == false);
     assert(arraylist_size(listInt) == 0);
     arraylist_free(listInt);
 }
@@ -203,7 +203,7 @@ void test_arraylist_add()
     for (size_t i = 0; i < tabSize; i++)
     {
         values[i] = i * 10;
-        arraylist_add(listInt, &(values[i]));
+        assert(arraylist_add(listInt, &(values[i])) == true);
         size++;
     }
     assert(arraylist_size(listInt) == size);
@@ -239,7 +239,7 @@ void test_arraylist_remove()
     for (size_t i = 0; i < tabSize; i++)
     {
         values[i] = i * 10;
-        arraylist_add(listInt, &(values[i]));
+        assert(arraylist_add(listInt, &(values[i])) == true);
         size++;
     }
     assert(arraylist_size(listInt) == size);
@@ -278,7 +278,7 @@ void test_arraylist_get_negIndex()
     size_t size = 0;
     *value = 42;
 
-    arraylist_add(listInt, value);
+    assert(arraylist_add(listInt, value) == true);
     size++;
     assert(arraylist_size(listInt) == size);
     assert(arraylist_get(listInt, -1) == NULL);
@@ -299,7 +299,7 @@ void test_arraylist_get_sizeIndex()
     size_t size = 0;
     *value = 42;
 
-    arraylist_add(listInt, value);
+    assert(arraylist_add(listInt, value) == true);
     size++;
     assert(arraylist_size(listInt) == size);
     assert(arraylist_get(listInt, size) == NULL);
@@ -320,7 +320,7 @@ void test_arraylist_get_zeroIndex()
     size_t size = 0;
     *value = 42;
 
-    arraylist_add(listInt, value);
+    assert(arraylist_add(listInt, value) == true);
     size++;
     assert(arraylist_size(listInt) == size);
     assert(*(int *)arraylist_get(listInt, 0) == *value);
@@ -343,10 +343,10 @@ void test_arraylist_get_endIndex()
     *value1 = 42;
     *value2 = 10;
 
-    arraylist_add(listInt, value1);
+    assert(arraylist_add(listInt, value1) == true);
     size++;
 
-    arraylist_add(listInt, value2);
+    assert(arraylist_add(listInt, value2) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -375,7 +375,7 @@ void test_arraylist_get()
     for (size_t i = 0; i < tabSize; i++)
     {
         values[i] = i * 10;
-        arraylist_add(listInt, &(values[i]));
+        assert(arraylist_add(listInt, &(values[i])) == true);
         size++;
     }
     assert(arraylist_size(listInt) == size);
@@ -399,7 +399,7 @@ void test_arraylist_get()
 void test_arraylist_addAt_listNULL()
 {
     ArrayList *listInt = NULL;
-    arraylist_addAt(listInt, 0, 0);
+    assert(arraylist_addAt(listInt, 0, 0) == false);
     assert(arraylist_size(listInt) == -1);
 }
 
@@ -412,7 +412,7 @@ void test_arraylist_addAt_elementNULL()
         return;
     }
 
-    arraylist_addAt(listInt, NULL, 0);
+    assert(arraylist_addAt(listInt, NULL, 0) == false);
     assert(arraylist_size(listInt) == 0);
     arraylist_free(listInt);
 }
@@ -430,8 +430,7 @@ void test_arraylist_addAt_negIndex()
     size_t size = 0;
     *value1 = 42;
 
-    arraylist_addAt(listInt, value1, -1);
-
+    assert(arraylist_addAt(listInt, value1, -1) == false);
     assert(arraylist_size(listInt) == size);
     assert(arraylist_get(listInt, 0) == NULL);
 
@@ -454,8 +453,7 @@ void test_arraylist_addAt_maxIndex()
     size_t size = 0;
     *value1 = 42;
 
-    arraylist_addAt(listInt, value1, 9999);
-
+    assert(arraylist_addAt(listInt, value1, 9999) == false);
     assert(arraylist_size(listInt) == size);
     assert(arraylist_get(listInt, 0) == NULL);
 
@@ -475,7 +473,7 @@ void test_arraylist_addAt_zeroIndex()
     size_t size = 0;
     *value1 = 42;
 
-    arraylist_addAt(listInt, value1, 0);
+    assert(arraylist_addAt(listInt, value1, 0) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -500,10 +498,10 @@ void test_arraylist_addAt_sizeIndex()
     *value1 = 42;
     *value2 = 10;
 
-    arraylist_addAt(listInt, value1, 0);
+    assert(arraylist_addAt(listInt, value1, 0) == true);
     size++;
 
-    arraylist_addAt(listInt, value2, size);
+    assert(arraylist_addAt(listInt, value2, size) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -533,7 +531,7 @@ void test_arraylist_addAt()
     for (size_t i = 0; i < tabSize; i++)
     {
         values[i] = i * 10;
-        arraylist_addAt(listInt, &(values[i]), size);
+        assert(arraylist_addAt(listInt, &(values[i]), size) == true);
         size++;
     }
     assert(arraylist_size(listInt) == size);
@@ -570,13 +568,13 @@ void test_arraylist_removeAt_negIndex()
     *value2 = 10;
     *value3 = 25;
 
-    arraylist_addAt(listInt, value1, 0);
+    assert(arraylist_addAt(listInt, value1, 0) == true);
     size++;
 
-    arraylist_addAt(listInt, value2, size);
+    assert(arraylist_addAt(listInt, value2, size) == true);
     size++;
 
-    arraylist_addAt(listInt, value3, 1);
+    assert(arraylist_addAt(listInt, value3, 1) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -606,13 +604,13 @@ void test_arraylist_removeAt_sizeIndex()
     *value2 = 10;
     *value3 = 25;
 
-    arraylist_addAt(listInt, value1, 0);
+    assert(arraylist_addAt(listInt, value1, 0) == true);
     size++;
 
-    arraylist_addAt(listInt, value2, size);
+    assert(arraylist_addAt(listInt, value2, size) == true);
     size++;
 
-    arraylist_addAt(listInt, value3, 1);
+    assert(arraylist_addAt(listInt, value3, 1) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -642,13 +640,13 @@ void test_arraylist_removeAt_zeroIndex()
     *value2 = 10;
     *value3 = 25;
 
-    arraylist_addAt(listInt, value1, 0);
+    assert(arraylist_addAt(listInt, value1, 0) == true);
     size++;
 
-    arraylist_addAt(listInt, value2, size);
+    assert(arraylist_addAt(listInt, value2, size) == true);
     size++;
 
-    arraylist_addAt(listInt, value3, 1);
+    assert(arraylist_addAt(listInt, value3, 1) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -680,13 +678,13 @@ void test_arraylist_removeAt_endIndex()
     *value2 = 10;
     *value3 = 25;
 
-    arraylist_addAt(listInt, value1, 0);
+    assert(arraylist_addAt(listInt, value1, 0) == true);
     size++;
 
-    arraylist_addAt(listInt, value2, size);
+    assert(arraylist_addAt(listInt, value2, size) == true);
     size++;
 
-    arraylist_addAt(listInt, value3, 1);
+    assert(arraylist_addAt(listInt, value3, 1) == true);
     size++;
 
     assert(arraylist_size(listInt) == size);
@@ -719,7 +717,7 @@ void test_arraylist_removeAt()
     for (size_t i = 0; i < tabSize; i++)
     {
         values[i] = i * 10;
-        arraylist_add(listInt, &(values[i]));
+        assert(arraylist_add(listInt, &(values[i])) == true);
         size++;
     }
     assert(arraylist_size(listInt) == size);
