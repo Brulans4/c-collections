@@ -11,8 +11,8 @@ typedef struct ArrayList
 /**
  * Declaration of static functon signature
  */
-static void arraylist_resize(ArrayList *list);
-static void arraylist_resizeList(ArrayList *list, float factor);
+static bool arraylist_resize(ArrayList *list);
+static bool arraylist_resizeList(ArrayList *list, float factor);
 
 ArrayList *arraylist_create(size_t typeSize)
 {
@@ -60,11 +60,11 @@ size_t arraylist_size(const ArrayList *list)
     return list->size;
 }
 
-void arraylist_add(ArrayList *list, void *element)
+bool arraylist_add(ArrayList *list, void *element)
 {
     if (list == NULL || element == NULL)
     {
-        return;
+        return false;
     }
     uint8_t *byteData = (uint8_t *)list->data;
 
@@ -75,19 +75,20 @@ void arraylist_add(ArrayList *list, void *element)
 
     if (list->size == list->capacity)
     {
-        arraylist_resize(list);
+        return arraylist_resize(list);
     }
+    return true;
 }
 
-void arraylist_addAt(ArrayList *list, void *element, size_t index)
+bool arraylist_addAt(ArrayList *list, void *element, size_t index)
 {
     if (list == NULL || element == NULL)
     {
-        return;
+        return false;
     }
     if (index < 0 || list->size < index)
     {
-        return;
+        return false;
     }
     uint8_t *byteData = (uint8_t *)list->data;
 
@@ -102,30 +103,31 @@ void arraylist_addAt(ArrayList *list, void *element, size_t index)
 
     if (list->size == list->capacity)
     {
-        arraylist_resize(list);
+        return arraylist_resize(list);
     }
+    return true;
 }
 
-static void arraylist_resize(ArrayList *list)
+static bool arraylist_resize(ArrayList *list)
 {
     if (list->capacity <= 1024)
     {
-        arraylist_resizeList(list, 2.0);
+        return arraylist_resizeList(list, 2.0);
     }
     else
     {
-        arraylist_resizeList(list, 1.3);
+        return arraylist_resizeList(list, 1.3);
     }
 }
 
-static void arraylist_resizeList(ArrayList *list, float factor)
+static bool arraylist_resizeList(ArrayList *list, float factor)
 {
     size_t newCapacity = (list->capacity) * factor;
     uint8_t *newData = malloc(newCapacity * list->typeSize);
 
     if (!newData)
     {
-        return;
+        return false;
     }
 
     uint8_t *oldData = (uint8_t *)list->data;
@@ -137,6 +139,8 @@ static void arraylist_resizeList(ArrayList *list, float factor)
 
     list->data = newData;
     list->capacity = newCapacity;
+
+    return true;
 }
 
 void *arraylist_remove(ArrayList *list)
