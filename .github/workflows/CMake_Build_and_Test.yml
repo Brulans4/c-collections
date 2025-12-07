@@ -29,4 +29,7 @@ jobs:
       - name: Run tests
         run: |
           cd build
-          ./test_arraylist
+          for t in test_*; do
+            echo "Running $t..."
+            ./$t
+          done
