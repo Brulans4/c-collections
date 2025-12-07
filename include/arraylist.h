@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdbool.h>
 
 /**
  * @brief Opaque structure representing a dynamic array (ArrayList).
@@ -77,7 +78,7 @@ size_t arraylist_size(const ArrayList *list);
  * @note The element pointer must refer to initialized memory and must not be NULL.
  * @note A reallocation may occur; all previously returned raw data pointers become invalid.
  */
-void arraylist_add(ArrayList *list, void *ellement);
+bool arraylist_add(ArrayList *list, void *ellement);
 
 /**
  * @brief Inserts an element into the ArrayList at the specified index.
@@ -98,7 +99,7 @@ void arraylist_add(ArrayList *list, void *ellement);
  * @param index     Position at which the element should be inserted. Valid values
  *                  are 0 to list->size - 1. If index >= list->size, no insertion occurs.
  */
-void arraylist_addAt(ArrayList *list, void *element, size_t index);
+bool arraylist_addAt(ArrayList *list, void *element, size_t index);
 
 /**
  * Removes and returns the first element of the ArrayList.
