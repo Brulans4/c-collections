@@ -89,7 +89,7 @@ int main()
     test_arraylist_removeAt();
 
     printf("All tests passed!\n");
-    return 0;
+    exit(0);
 }
 
 void test_arraylist_free()
@@ -98,7 +98,7 @@ void test_arraylist_free()
     if (listInt == NULL)
     {
         perror("test_arraylist_free(): NULL\n");
-        return;
+        exit(1);
     }
     arraylist_free(listInt);
 }
@@ -116,7 +116,7 @@ void test_arraylist_creat()
     if (listInt == NULL)
     {
         perror("test_arraylist_creat(): NULL\n");
-        return;
+        exit(1);
     }
     arraylist_free(listInt);
 }
@@ -141,7 +141,7 @@ void test_arraylist_createInitSize()
     if (listInt == NULL)
     {
         perror("test_arraylist_createInitSize(): NULL\n");
-        return;
+        exit(1);
     }
     arraylist_free(listInt);
 }
@@ -158,7 +158,7 @@ void test_arraylist_size()
     if (listInt == NULL)
     {
         perror("test_arraylist_size(): NULL\n");
-        return;
+        exit(1);
     }
 
     assert(arraylist_size(listInt) == 0);
@@ -178,7 +178,7 @@ void test_arraylist_add_elementNULL()
     if (listInt == NULL)
     {
         perror("test_arraylist_add_elementNULL(): NULL\n");
-        return;
+        exit(1);
     }
 
     assert(arraylist_add(listInt, NULL) == false);
@@ -196,7 +196,7 @@ void test_arraylist_add()
     if (listInt == NULL || values == NULL)
     {
         perror("test_arraylist_add(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
 
@@ -232,7 +232,7 @@ void test_arraylist_remove()
     if (listInt == NULL || values == NULL)
     {
         perror("test_arraylist_remove(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
 
@@ -273,7 +273,7 @@ void test_arraylist_get_negIndex()
     if (listInt == NULL || value == NULL)
     {
         perror("test_arraylist_get_negIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value = 42;
@@ -294,7 +294,7 @@ void test_arraylist_get_sizeIndex()
     if (listInt == NULL || value == NULL)
     {
         perror("test_arraylist_get_sizeIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value = 42;
@@ -315,7 +315,7 @@ void test_arraylist_get_zeroIndex()
     if (listInt == NULL || value == NULL)
     {
         perror("test_arraylist_get_zeroIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value = 42;
@@ -337,7 +337,7 @@ void test_arraylist_get_endIndex()
     if (listInt == NULL || value1 == NULL || value2 == NULL)
     {
         perror("test_arraylist_get_endIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -368,7 +368,7 @@ void test_arraylist_get()
     if (listInt == NULL || values == NULL)
     {
         perror("test_arraylist_get(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
 
@@ -409,7 +409,7 @@ void test_arraylist_addAt_elementNULL()
     if (listInt == NULL)
     {
         perror("test_arraylist_addAt_elementNULL(): NULL\n");
-        return;
+        exit(1);
     }
 
     assert(arraylist_addAt(listInt, NULL, 0) == false);
@@ -425,7 +425,7 @@ void test_arraylist_addAt_negIndex()
     if (listInt == NULL || value1 == NULL)
     {
         perror("test_arraylist_addAt_negIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -447,8 +447,7 @@ void test_arraylist_addAt_maxIndex()
     if (listInt == NULL || value1 == NULL)
     {
         perror("test_arraylist_addAt_maxIndex(): NULL\n");
-        return;
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -468,7 +467,7 @@ void test_arraylist_addAt_zeroIndex()
     if (listInt == NULL || value1 == NULL)
     {
         perror("test_arraylist_addAt_zeroIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -492,7 +491,7 @@ void test_arraylist_addAt_sizeIndex()
     if (listInt == NULL || value1 == NULL || value2 == NULL)
     {
         perror("test_arraylist_addAt_sizeIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -524,7 +523,7 @@ void test_arraylist_addAt()
     if (listInt == NULL || values == NULL)
     {
         perror("test_arraylist_get(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
 
@@ -561,7 +560,7 @@ void test_arraylist_removeAt_negIndex()
     if (listInt == NULL || value1 == NULL || value2 == NULL || value3 == NULL)
     {
         perror("test_arraylist_removeAt_negIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -597,7 +596,7 @@ void test_arraylist_removeAt_sizeIndex()
     if (listInt == NULL || value1 == NULL || value2 == NULL || value3 == NULL)
     {
         perror("test_arraylist_removeAt_sizeIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -633,7 +632,7 @@ void test_arraylist_removeAt_zeroIndex()
     if (listInt == NULL || value1 == NULL || value2 == NULL || value3 == NULL)
     {
         perror("test_arraylist_removeAt_zeroIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -671,7 +670,7 @@ void test_arraylist_removeAt_endIndex()
     if (listInt == NULL || value1 == NULL || value2 == NULL || value3 == NULL)
     {
         perror("test_arraylist_removeAt_endIndex(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
     *value1 = 42;
@@ -710,7 +709,7 @@ void test_arraylist_removeAt()
     if (listInt == NULL || values == NULL)
     {
         perror("test_arraylist_get(): NULL\n");
-        return;
+        exit(1);
     }
     size_t size = 0;
 
