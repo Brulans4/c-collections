@@ -64,7 +64,7 @@ bool arraylist_add(ArrayList *list, void *element)
 {
     if (list == NULL || element == NULL)
     {
-        return;
+        return false;
     }
     uint8_t *byteData = (uint8_t *)list->data;
 
@@ -75,8 +75,9 @@ bool arraylist_add(ArrayList *list, void *element)
 
     if (list->size == list->capacity)
     {
-        arraylist_resize(list);
+        return arraylist_resize(list);
     }
+    return true;
 }
 
 bool arraylist_addAt(ArrayList *list, void *element, size_t index)
