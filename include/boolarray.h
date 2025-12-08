@@ -95,8 +95,8 @@ bool *boolarray_get(BoolArray *bArray, size_t index);
 /**
  * Sets the boolean value at the specified index in the BoolArray.
  *
- * @param bArray Pointer to the BoolArray. Must not be NULL.
- * @param index The index to modify (0 <= index < size).
+ * @param bArray Pointer to the BoolArray.
+ * @param index The index to modify.
  * @param value The boolean value to store.
  *
  * @return true if the value was successfully stored,
@@ -106,6 +106,15 @@ bool *boolarray_get(BoolArray *bArray, size_t index);
  */
 bool boolarray_set(BoolArray *bArray, size_t index, bool value);
 
-void boolarray_flip(BoolArray *bArray, size_t index);
+/**
+ * Toggles (flips) the boolean value stored at the specified index.
+ *
+ * @param bArray Pointer to the BoolArray.
+ * @param index The index of the element to flip.
+ *
+ * @return true if the bit was successfully flipped,
+ *         false if bArray is NULL or the index is out of bounds.
+ */
+bool boolarray_flip(BoolArray *bArray, size_t index);
 
 #endif // BOOL_ARRAY_H

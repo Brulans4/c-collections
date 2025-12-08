@@ -99,7 +99,8 @@ bool boolarray_addAt(BoolArray *bArray, bool value, size_t index)
             return false;
         }
 
-        if(boolarray_set(bArray, i, *pbit) == false){
+        if (boolarray_set(bArray, i, *pbit) == false)
+        {
             free(pbit);
             return false;
         }
@@ -191,6 +192,19 @@ bool boolarray_set(BoolArray *bArray, size_t index, bool value)
     return true;
 }
 
-void boolarray_flipAt(BoolArray *bArray, size_t index)
+bool boolarray_flip(BoolArray *bArray, size_t index)
 {
+    if (bArray == NULL)
+    {
+        return false;
+    }
+    if (index < 0 || bArray->size <= index)
+    {
+        return false;
+    }
+    size_t byteIndex = index >> 3;
+    uint8_t bitIndex = index & 0x07u;
+
+    bArray->data[byteIndex] = bArray->data[byteIndex] ^ (0x01u << bitIndex);
+    return true;
 }
