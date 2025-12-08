@@ -40,6 +40,22 @@ size_t boolarray_size(const BoolArray *bArray);
  */
 bool boolarray_isEmpty(const BoolArray *bArray);
 
+/**
+ * Adds a boolean value to the end of the BoolArray.
+ * The array automatically resizes its internal storage if needed.
+ *
+ * Each boolean is stored as a single bit within the underlying uint8_t array
+ * to optimize memory usage.
+ *
+ * @param bArray Pointer to the BoolArray. Must not be NULL.
+ * @param value The boolean value to add (true or false).
+ * @return true if the value was successfully added, false if bArray is NULL
+ *         or if resizing fails.
+ *
+ * @note Internally, each boolean is stored in a single bit. When the number of elements
+ *       reaches the current capacity, the array is resized by calling `boolarray_resizeList`.
+ *       This may involve allocating more memory, which can fail.
+ */
 bool boolarray_add(BoolArray *bArray, bool value);
 
 bool boolarray_addAt(BoolArray *bArray, bool value, size_t index);
