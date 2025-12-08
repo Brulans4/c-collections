@@ -66,6 +66,8 @@ bool *boolarray_removeAt(BoolArray *bArray, size_t index);
 
 bool *boolarray_get(BoolArray *bArray, size_t index);
 
-void boolarray_flipAt(BoolArray *bArray, size_t index);
+bool boolarray_set(BoolArray *bArray, size_t index);
+
+void boolarray_flip(BoolArray *bArray, size_t index);
 
 #endif // BOOL_ARRAY_H
