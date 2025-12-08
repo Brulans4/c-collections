@@ -25,6 +25,12 @@ BoolArray *boolarray_create()
 
 void boolarray_free(BoolArray *bArray)
 {
+    if (bArray == NULL)
+    {
+        return;
+    }
+    free(bArray->data);
+    free(bArray);
 }
 
 size_t boolarray_size(const BoolArray *bArray)
