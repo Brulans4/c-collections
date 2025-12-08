@@ -57,6 +57,10 @@ void test_arraylist_set_zeroIndex();
 void test_arraylist_set_endIndex();
 void test_arraylist_set();
 
+void test_arraylist_sort_listNULL();
+void test_arraylist_sort_comparNULL();
+void test_arraylist_sort();
+
 int main()
 {
     test_arraylist_free();
@@ -111,6 +115,10 @@ int main()
     test_arraylist_set_zeroIndex();
     test_arraylist_set_endIndex();
     test_arraylist_set();
+
+    test_arraylist_sort_listNULL();
+    test_arraylist_sort_comparNULL();
+    test_arraylist_sort();
 
     exit(0);
 }
@@ -950,5 +958,43 @@ void test_arraylist_set()
     assert(arraylist_size(listInt) == size);
 
     free(values);
+    arraylist_free(listInt);
+}
+
+static int compare(const void *elt1, const void *elt2)
+{
+    int *i1 = (int *)elt1;
+    int *i2 = (int *)elt2;
+
+    return ((*i1) - (*i2));
+}
+
+void test_arraylist_sort_listNULL()
+{
+    ArrayList *listInt = NULL;
+    assert(arraylist_sort(listInt, compare) == false);
+}
+
+void test_arraylist_sort_comparNULL()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    if (listInt == NULL)
+    {
+        perror("test_arraylist_sort_comparNULL(): NULL\n");
+        exit(1);
+    }
+    assert(arraylist_sort(listInt, NULL) == false);
+    arraylist_free(listInt);
+}
+
+void test_arraylist_sort()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    if (listInt == NULL)
+    {
+        perror("test_arraylist_sort_comparNULL(): NULL\n");
+        exit(1);
+    }
+    assert(arraylist_sort(listInt, compare) == true);
     arraylist_free(listInt);
 }
