@@ -153,4 +153,17 @@ void *arraylist_removeAt(ArrayList *list, size_t index);
  */
 void *arraylist_get(ArrayList *list, size_t index);
 
+/**
+ * Replaces the element at the specified position in the ArrayList
+ * with the provided value.
+ *
+ * @param list      the ArrayList instance to modify.
+ * @param element   a pointer to the new element value.
+ * @param index     the position at which the element should be replaced.
+ *
+ * @return          true if the element was successfully replaced;
+ *                  false otherwise.
+ */
+bool arraylist_set(ArrayList *list,void* element, size_t index);
+
 #endif // ARRAY_LIST_H
