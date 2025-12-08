@@ -55,15 +55,21 @@ bool boolarray_add(BoolArray *bArray, bool value)
     {
         return false;
     }
-    if (value == true)
+
+    size_t index = (bArray->size >> 3);
+    uint8_t bitIndex = (bArray->size % 8);
+
+    uint8_t bitmask = 0x01 << bitIndex;
+
+    uint8_t *dataArray = bArray->data;
+
+    if (value)
     {
-        size_t index = (bArray->size >> 3);
-        uint8_t bitIndex = (bArray->size - index);
-
-        uint8_t bitmask = 0x01 << bitIndex;
-
-        uint8_t* dataArray = bArray->data;
-        dataArray[index] = dataArray[index] | bitmask;
+        dataArray[index] |= bitmask;
+    }
+    else
+    {
+        dataArray[index] &= ~bitmask;
     }
     bArray->size++;
 
@@ -80,8 +86,8 @@ bool boolarray_addAt(BoolArray *bArray, bool value, size_t index)
 
 static bool boolarray_resizeList(BoolArray *bArray)
 {
-    size_t newCapacity = (bArray->capacity >> 3) * 2;
-    uint8_t *newData = malloc(newCapacity * sizeof(uint8_t));
+    size_t newCapacity = bArray->capacity * 2;
+    uint8_t *newData = malloc((newCapacity >> 3) * sizeof(uint8_t));
 
     if (!newData)
     {
