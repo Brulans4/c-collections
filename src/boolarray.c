@@ -35,10 +35,16 @@ void boolarray_free(BoolArray *bArray)
 
 size_t boolarray_size(const BoolArray *bArray)
 {
+    if (bArray == NULL)
+    {
+        return -1;
+    }
+    return bArray->size;
 }
 
 bool boolarray_isEmpty(const BoolArray *bArray)
 {
+    return boolarray_size(bArray) == 0;
 }
 
 bool boolarray_add(BoolArray *bArray, bool value)
