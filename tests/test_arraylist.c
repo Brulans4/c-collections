@@ -88,7 +88,6 @@ int main()
     test_arraylist_removeAt_endIndex();
     test_arraylist_removeAt();
 
-    printf("All tests passed!\n");
     exit(0);
 }
 
