@@ -20,6 +20,10 @@ void test_arraylist_add_listNULL();
 void test_arraylist_add_elementNULL();
 void test_arraylist_add();
 
+void test_arraylist_isEmpty_NULL();
+void test_arraylist_isEmpty_false();
+void test_arraylist_isEmpty();
+
 void test_arraylist_remove_listNULL();
 void test_arraylist_remove();
 
@@ -45,6 +49,14 @@ void test_arraylist_removeAt_zeroIndex();
 void test_arraylist_removeAt_endIndex();
 void test_arraylist_removeAt();
 
+void test_arraylist_set_listNULL();
+void test_arraylist_set_elementNULL();
+void test_arraylist_set_negIndex();
+void test_arraylist_set_sizeIndex();
+void test_arraylist_set_zeroIndex();
+void test_arraylist_set_endIndex();
+void test_arraylist_set();
+
 int main()
 {
     test_arraylist_free();
@@ -62,6 +74,10 @@ int main()
     test_arraylist_add_listNULL();
     test_arraylist_add_elementNULL();
     test_arraylist_add();
+
+    test_arraylist_isEmpty_NULL();
+    test_arraylist_isEmpty_false();
+    test_arraylist_isEmpty();
 
     test_arraylist_remove_listNULL();
     test_arraylist_remove();
@@ -87,6 +103,14 @@ int main()
     test_arraylist_removeAt_zeroIndex();
     test_arraylist_removeAt_endIndex();
     test_arraylist_removeAt();
+
+    test_arraylist_set_listNULL();
+    test_arraylist_set_elementNULL();
+    test_arraylist_set_negIndex();
+    test_arraylist_set_sizeIndex();
+    test_arraylist_set_zeroIndex();
+    test_arraylist_set_endIndex();
+    test_arraylist_set();
 
     exit(0);
 }
@@ -213,6 +237,36 @@ void test_arraylist_add()
     }
     free(values);
     arraylist_free(listInt);
+}
+
+void test_arraylist_isEmpty_NULL()
+{
+    ArrayList *listInt = NULL;
+    assert(arraylist_empty(listInt) == false);
+}
+
+void test_arraylist_isEmpty_false()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    int *value = malloc(sizeof(int));
+    if (listInt == NULL || value == NULL)
+    {
+        perror("test_arraylist_isEmpty_false(): NULL\n");
+        exit(1);
+    }
+    assert(arraylist_add(listInt, value) == true);
+    assert(arraylist_empty(listInt) == false);
+}
+
+void test_arraylist_isEmpty()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    if (listInt == NULL)
+    {
+        perror("test_arraylist_isEmpty(): NULL\n");
+        exit(1);
+    }
+    assert(arraylist_empty(listInt) == true);
 }
 
 void test_arraylist_remove_listNULL()
@@ -725,10 +779,173 @@ void test_arraylist_removeAt()
         assert(*(int *)arraylist_get(listInt, i) == values[i]);
     }
 
-    for (size_t i = 0; i < tabSize / 4; i ++)
+    for (size_t i = 0; i < tabSize / 4; i++)
     {
         assert(*(int *)arraylist_removeAt(listInt, 0) == values[i]);
         size--;
+    }
+    assert(arraylist_size(listInt) == size);
+
+    free(values);
+    arraylist_free(listInt);
+}
+
+void test_arraylist_set_listNULL()
+{
+    ArrayList *listInt = NULL;
+    assert(arraylist_set(listInt, 0, 0) == false);
+}
+
+void test_arraylist_set_elementNULL()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    if (listInt == NULL)
+    {
+        perror("test_arraylist_set_elementNULL(): NULL\n");
+        exit(1);
+    }
+    assert(arraylist_set(listInt, NULL, 0) == false);
+    arraylist_free(listInt);
+}
+
+void test_arraylist_set_negIndex()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    int *value1 = malloc(sizeof(int));
+    int *value2 = malloc(sizeof(int));
+    if (listInt == NULL || value1 == NULL || value2 == NULL)
+    {
+        perror("test_arraylist_set_negIndex(): NULL\n");
+        exit(1);
+    }
+    size_t size = 0;
+    *value1 = 42;
+    *value2 = 10;
+
+    assert(arraylist_addAt(listInt, value1, 0) == true);
+    size++;
+
+    assert(arraylist_set(listInt, value2, -1) == false);
+    assert(*(int *)arraylist_get(listInt, 0) == *value1);
+
+    free(value1);
+    free(value2);
+
+    arraylist_free(listInt);
+}
+
+void test_arraylist_set_sizeIndex()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    int *value1 = malloc(sizeof(int));
+    int *value2 = malloc(sizeof(int));
+    if (listInt == NULL || value1 == NULL || value2 == NULL)
+    {
+        perror("test_arraylist_set_sizeIndex(): NULL\n");
+        exit(1);
+    }
+    size_t size = 0;
+    *value1 = 42;
+    *value2 = 10;
+
+    assert(arraylist_addAt(listInt, value1, 0) == true);
+    size++;
+
+    assert(arraylist_set(listInt, value2, size) == false);
+    assert(*(int *)arraylist_get(listInt, 0) == *value1);
+
+    free(value1);
+    free(value2);
+
+    arraylist_free(listInt);
+}
+
+void test_arraylist_set_zeroIndex()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    int *value1 = malloc(sizeof(int));
+    int *value2 = malloc(sizeof(int));
+    if (listInt == NULL || value1 == NULL || value2 == NULL)
+    {
+        perror("test_arraylist_set_zeroIndex(): NULL\n");
+        exit(1);
+    }
+    size_t size = 0;
+    *value1 = 42;
+    *value2 = 10;
+
+    assert(arraylist_addAt(listInt, value1, 0) == true);
+    size++;
+
+    assert(arraylist_set(listInt, value2, 0) == true);
+    assert(*(int *)arraylist_get(listInt, 0) == *value2);
+
+    free(value1);
+    free(value2);
+
+    arraylist_free(listInt);
+}
+
+void test_arraylist_set_endIndex()
+{
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+    int *value1 = malloc(sizeof(int));
+    int *value2 = malloc(sizeof(int));
+    if (listInt == NULL || value1 == NULL || value2 == NULL)
+    {
+        perror("test_arraylist_set_endIndex(): NULL\n");
+        exit(1);
+    }
+    size_t size = 0;
+    *value1 = 42;
+    *value2 = 10;
+
+    assert(arraylist_addAt(listInt, value1, 0) == true);
+    size++;
+    assert(arraylist_addAt(listInt, value1, 0) == true);
+    size++;
+
+    assert(arraylist_set(listInt, value2, size - 1) == true);
+    assert(*(int *)arraylist_get(listInt, size - 1) == *value2);
+
+    free(value1);
+    free(value2);
+
+    arraylist_free(listInt);
+}
+
+void test_arraylist_set()
+{
+    size_t tabSize = 100;
+
+    ArrayList *listInt = arraylist_create(sizeof(int *));
+
+    int *values = malloc(sizeof(int) * tabSize);
+    if (listInt == NULL || values == NULL)
+    {
+        perror("test_arraylist_set(): NULL\n");
+        exit(1);
+    }
+    size_t size = 0;
+
+    for (size_t i = 0; i < tabSize; i++)
+    {
+        values[i] = i;
+        assert(arraylist_addAt(listInt, &(values[i]), size) == true);
+        size++;
+    }
+    assert(arraylist_size(listInt) == size);
+
+    for (size_t i = 0; i < tabSize; i++)
+    {
+        values[i] = i * 10;
+        assert(arraylist_set(listInt, &(values[i]), i) == true);
+    }
+    assert(arraylist_size(listInt) == size);
+
+    for (size_t i = 0; i < tabSize; i++)
+    {
+        assert(*(int *)arraylist_get(listInt, i) == values[i]);
     }
     assert(arraylist_size(listInt) == size);
 

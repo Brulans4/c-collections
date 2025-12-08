@@ -62,11 +62,7 @@ size_t arraylist_size(const ArrayList *list)
 
 bool arraylist_empty(const ArrayList *list)
 {
-    if (list == NULL)
-    {
-        return false;
-    }
-    return list->size == 0;
+    return arraylist_size(list) == 0;
 }
 
 bool arraylist_add(ArrayList *list, void *element)
