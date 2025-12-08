@@ -8,7 +8,7 @@
 
 typedef struct BoolArray;
 
-BoolArray *boolarray_create(size_t typeSize);
+BoolArray *boolarray_create();
 
 void boolarray_free(BoolArray *bArray);
 
