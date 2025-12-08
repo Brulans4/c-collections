@@ -4,7 +4,7 @@ typedef struct ArrayList
 {
     size_t size;
     size_t capacity;
-    int typeSize;
+    size_t typeSize;
     void *data;
 } ArrayList;
 
@@ -23,9 +23,9 @@ ArrayList *arraylist_createInitSize(size_t typeSize, size_t initialSize)
 {
     if (typeSize == 0 || initialSize == 0)
     {
-       return NULL;
+        return NULL;
     }
-    
+
     ArrayList *list = (ArrayList *)malloc(sizeof(ArrayList));
 
     list->size = 0;
@@ -58,6 +58,11 @@ size_t arraylist_size(const ArrayList *list)
         return -1;
     }
     return list->size;
+}
+
+bool arraylist_empty(const ArrayList *list)
+{
+    return arraylist_size(list) == 0;
 }
 
 bool arraylist_add(ArrayList *list, void *element)
@@ -153,7 +158,6 @@ void *arraylist_remove(ArrayList *list)
     {
         return NULL;
     }
-    
 
     void *element = malloc(list->typeSize);
     if (!element)
@@ -235,4 +239,33 @@ void *arraylist_get(ArrayList *list, size_t index)
            list->typeSize);
 
     return element;
+}
+
+bool arraylist_set(ArrayList *list, void *element, size_t index)
+{
+    if (list == NULL || element == NULL)
+    {
+        return false;
+    }
+    if (index < 0 || list->size <= index)
+    {
+        return false;
+    }
+    uint8_t *byteData = (uint8_t *)list->data;
+
+    memcpy(byteData + (index * list->typeSize),
+           element,
+           list->typeSize);
+
+    return true;
+}
+
+bool arraylist_sort(ArrayList *list, int (*compare)(const void *, const void *))
+{
+    if (list == NULL || compare == NULL)
+    {
+        return false;
+    }
+    qsort(list->data, list->size, list->typeSize, compare);
+    return true;
 }

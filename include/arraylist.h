@@ -52,10 +52,19 @@ void arraylist_free(ArrayList *list);
 /**
  * @brief Returns the number of elements currently stored in the ArrayList.
  *
- * @param list Pointer to the ArrayList.
- * @return Number of elements in the list.
+ * @param   list Pointer to the ArrayList.
+ * @return  Number of elements in the list.
  */
 size_t arraylist_size(const ArrayList *list);
+
+/**
+ * Checks whether the given ArrayList is empty.
+ *
+ * @param   list the ArrayList instance to check.
+ * @return  true if the list is empty.
+ *          false otherwise.
+ */
+bool arraylist_empty(const ArrayList *list);
 
 /**
  * @brief Adds an element to the end of the ArrayList.
@@ -143,5 +152,29 @@ void *arraylist_removeAt(ArrayList *list, size_t index);
  *              is empty, the index is invalid, or memory allocation fails.
  */
 void *arraylist_get(ArrayList *list, size_t index);
+
+/**
+ * Replaces the element at the specified position in the ArrayList
+ * with the provided value.
+ *
+ * @param list      the ArrayList instance to modify.
+ * @param element   a pointer to the new element value.
+ * @param index     the position at which the element should be replaced.
+ *
+ * @return          true if the element was successfully replaced;
+ *                  false otherwise.
+ */
+bool arraylist_set(ArrayList *list,void* element, size_t index);
+
+/**
+ * Sorts the elements of the ArrayList using the specified comparison function.
+ *
+ * @param list     the ArrayList instance to sort.
+ * @param compare  a pointer to a comparator function used by {@code qsort}.
+ *
+ * @return          true if the list was successfully sorted;
+ *                  false otherwise
+ */
+bool arraylist_sort(ArrayList *list, int (*compare)(const void *, const void *));
 
 #endif // ARRAY_LIST_H
