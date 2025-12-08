@@ -9,7 +9,18 @@ typedef struct BoolArray
 
 BoolArray *boolarray_create()
 {
+    BoolArray* bArray = malloc(sizeof(BoolArray));
+    uint8_t* pInt8 = malloc(sizeof(uint8_t));
 
+    if (bArray == NULL || pInt8 == NULL)
+    {
+        return NULL;
+    }
+    bArray->capacity = sizeof(uint8_t);
+    bArray->size = 0;
+    bArray->data = pInt8;
+    
+    return bArray;
 }
 
 void boolarray_free(BoolArray *bArray)
