@@ -4,7 +4,7 @@ typedef struct ArrayList
 {
     size_t size;
     size_t capacity;
-    int typeSize;
+    size_t typeSize;
     void *data;
 } ArrayList;
 
