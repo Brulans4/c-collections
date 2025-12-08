@@ -8,12 +8,36 @@
 
 typedef struct BoolArray;
 
+/**
+ * Creates a new empty BoolArray.
+ *
+ * @return A pointer to a newly allocated BoolArray, or NULL if memory allocation fails.
+ */
 BoolArray *boolarray_create();
 
+/**
+ * Frees all memory associated with the given BoolArray.
+ * After this function is called, the pointer becomes invalid.
+ *
+ * @param bArray Pointer to the BoolArray to free. If NULL, the function does nothing.
+ */
 void boolarray_free(BoolArray *bArray);
 
+
+/**
+ * Returns the current number of elements in the BoolArray.
+ *
+ * @param bArray Pointer to the BoolArray.
+ * @return The number of elements in the array, or -1 if bArray is NULL.
+ */
 size_t boolarray_size(const BoolArray *bArray);
 
+/**
+ * Checks if the BoolArray is empty.
+ *
+ * @param bArray Pointer to the BoolArray.
+ * @return true if the array has no elements, false otherwise.
+ */
 bool boolarray_isEmpty(const BoolArray *bArray);
 
 bool boolarray_add(BoolArray *bArray, bool value);
