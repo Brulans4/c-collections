@@ -166,4 +166,15 @@ void *arraylist_get(ArrayList *list, size_t index);
  */
 bool arraylist_set(ArrayList *list,void* element, size_t index);
 
+/**
+ * Sorts the elements of the ArrayList using the specified comparison function.
+ *
+ * @param list     the ArrayList instance to sort.
+ * @param compare  a pointer to a comparator function used by {@code qsort}.
+ *
+ * @return          true if the list was successfully sorted;
+ *                  false otherwise
+ */
+bool arraylist_sort(ArrayList *list, int (*compare)(const void *, const void *));
+
 #endif // ARRAY_LIST_H

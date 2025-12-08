@@ -259,3 +259,13 @@ bool arraylist_set(ArrayList *list, void *element, size_t index)
 
     return true;
 }
+
+bool arraylist_sort(ArrayList *list, int (*compare)(const void *, const void *))
+{
+    if (list == NULL || compare == NULL)
+    {
+        return false;
+    }
+    qsort(list->data, list->size, list->typeSize, compare);
+    return true;
+}
