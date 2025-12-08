@@ -52,10 +52,19 @@ void arraylist_free(ArrayList *list);
 /**
  * @brief Returns the number of elements currently stored in the ArrayList.
  *
- * @param list Pointer to the ArrayList.
- * @return Number of elements in the list.
+ * @param   list Pointer to the ArrayList.
+ * @return  Number of elements in the list.
  */
 size_t arraylist_size(const ArrayList *list);
+
+/**
+ * Checks whether the given ArrayList is empty.
+ *
+ * @param   list the ArrayList instance to check.
+ * @return  true if the list is empty.
+ *          false otherwise.
+ */
+bool arraylist_empty(const ArrayList *list);
 
 /**
  * @brief Adds an element to the end of the ArrayList.
