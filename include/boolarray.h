@@ -73,9 +73,9 @@ bool boolarray_add(BoolArray *bArray, bool value);
  */
 bool boolarray_addAt(BoolArray *bArray, bool value, size_t index);
 
-bool *boolarray_remove(BoolArray *bArray);
+bool boolarray_remove(BoolArray *bArray, bool* res);
 
-bool *boolarray_removeAt(BoolArray *bArray, size_t index);
+bool boolarray_removeAt(BoolArray *bArray, bool* res, size_t index);
 
 /**
  * Retrieves the boolean value stored at the specified index.
@@ -90,7 +90,7 @@ bool *boolarray_removeAt(BoolArray *bArray, size_t index);
  *
  * @warning The returned pointer MUST be freed by the caller.
  */
-bool *boolarray_get(BoolArray *bArray, size_t index);
+bool boolarray_get(BoolArray *bArray, bool* res, size_t index);
 
 /**
  * Sets the boolean value at the specified index in the BoolArray.

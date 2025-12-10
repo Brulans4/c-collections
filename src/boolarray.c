@@ -93,18 +93,16 @@ bool boolarray_addAt(BoolArray *bArray, bool value, size_t index)
 
     for (size_t i = bArray->size; i > index; i--)
     {
-        bool *pbit = boolarray_get(bArray, i - 1);
-        if (pbit == NULL)
+        bool bitValue;
+        if (boolarray_get(bArray, &bitValue, i - 1) == false)
         {
             return false;
         }
 
-        if (boolarray_set(bArray, i, *pbit) == false)
+        if (boolarray_set(bArray, i, &bitValue) == false)
         {
-            free(pbit);
             return false;
         }
-        free(pbit);
     }
     boolarray_set(bArray, index, value);
 
@@ -138,34 +136,29 @@ static bool boolarray_resizeList(BoolArray *bArray)
     return true;
 }
 
-bool *boolarray_remove(BoolArray *bArray)
+bool boolarray_remove(BoolArray *bArray, bool *res)
 {
 }
 
-bool *boolarray_removeAt(BoolArray *bArray, size_t index)
+bool boolarray_removeAt(BoolArray *bArray, bool *res, size_t index)
 {
 }
 
-bool *boolarray_get(const BoolArray *bArray, size_t index)
+bool boolarray_get(const BoolArray *bArray, bool *res, size_t index)
 {
     if (bArray == NULL)
     {
-        return NULL;
+        return false;
     }
     if (index < 0 || bArray->size <= index)
     {
-        return NULL;
+        return false;
     }
     size_t byte = index >> 3;
     uint8_t bit = index & 0x07u;
 
-    bool *bitValue = malloc(sizeof(bool));
-    if (bitValue == NULL)
-    {
-        return NULL;
-    }
-    *bitValue = ((bArray->data[byte]) >> bit) & 0x01u;
-    return bitValue;
+    *res = ((bArray->data[byte]) >> bit) & 0x01u;
+    return true;
 }
 
 bool boolarray_set(BoolArray *bArray, size_t index, bool value)
