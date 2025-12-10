@@ -78,17 +78,17 @@ bool boolarray_remove(BoolArray *bArray, bool* res);
 bool boolarray_removeAt(BoolArray *bArray, bool* res, size_t index);
 
 /**
- * Retrieves the boolean value stored at the specified index.
+ * Retrieves the boolean value stored at the specified index in the BoolArray.
+ *
+ * The value is written to the output parameter `res. Booleans are stored as
+ * individual bits inside the underlying uint8_t buffer, so this function
+ * extracts the correct bit and converts it to a boolean.
  *
  * @param bArray Pointer to the BoolArray.
+ * @param res Output parameter where the retrieved boolean value will be stored.
  * @param index The index of the element to retrieve.
  *
- * @return A pointer to a dynamically allocated boolean
- *         containing the value at the specified index,
- *         or NULL if bArray is NULL, index is out of range,
- *         or memory allocation fails.
- *
- * @warning The returned pointer MUST be freed by the caller.
+ * @return true if the value was successfully retrieved, false otherwise;
  */
 bool boolarray_get(BoolArray *bArray, bool* res, size_t index);
 
